@@ -31,7 +31,7 @@ function detectHeaderRow(aoa: string[][]): number {
 const SYNONYMS: [ContactField, RegExp][] = [
   ["whatsapp_phone", /whats\s*app|wa\s*(no|number)?$/i],
   ["secondary_phone", /(alt|alternate|secondary|other|landline|office)\s*(phone|mobile|no|number|contact)|phone\s*2|mobile\s*2|telephone/i],
-  ["phone", /mobile|phone|cell|contact\s*(no|number)?|^tel|ph\.?\s*no|^number$|mob/i],
+  ["phone", /mobile|phone|cell|contact\s*(no\.?|number)|^tel|ph\.?\s*no|^number$|^mob/i],
   ["secondary_email", /(alt|alternate|secondary|other)\s*e-?mail|e-?mail\s*2/i],
   ["email", /e-?mail|mail\s*id/i],
   ["first_name", /first\s*name|given\s*name|^fname/i],

@@ -6,6 +6,14 @@ import { shouldPrompt, MAX_AGE_MS, type PendingCall } from "@/lib/contacts/call-
 import { draftsFromAI } from "@/lib/contacts/postprocess";
 import { toCSV } from "@/lib/contacts/export";
 import { analyze } from "@/lib/contacts/review";
+import { autoMapping } from "@/lib/contacts/spreadsheet";
+
+describe("spreadsheet column mapping", () => {
+  it("maps common header names", () => {
+    expect(autoMapping(["Company", "Contact Person", "Phone"])).toEqual(["company", "full_name", "phone"]);
+    expect(autoMapping(["Name", "Mobile No", "Email ID", "WhatsApp", "City"])).toEqual(["full_name", "phone", "email", "whatsapp_phone", "city"]);
+  });
+});
 
 describe("phone normalization", () => {
   it("normalizes Indian mobiles without country code", () => {
