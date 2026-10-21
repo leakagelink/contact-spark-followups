@@ -96,7 +96,7 @@ export function ImportWizard({ input, onReset }: { input: { files?: File[]; text
       const sheet = s.file.sheets[s.sheetIdx];
       if (!sheet) continue;
       for (let i = 0; i < sheet.rows.length; i++) {
-        const d = draftFromRow(sheet.rows[i], s.mapping, { country, sourceFilename: s.file.name, sourceType: s.file.sourceType, location: `${sheet.name} · row ${i + 2}` });
+        const d = draftFromRow(sheet.rows[i] ?? [], s.mapping, { country, sourceFilename: s.file.name, sourceType: s.file.sourceType, location: `${sheet.name} · row ${i + 2}` });
         if (d) out.push(d);
         if (++n % 500 === 0) await yieldToUI();
       }

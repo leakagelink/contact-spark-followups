@@ -45,7 +45,9 @@ function ScanPage() {
     setPages((x) => [...x, p]);
   }
   async function update(i: number, patch: Partial<Page>) {
-    const p = { ...pages[i], ...patch };
+    const cur = pages[i];
+    if (!cur) return;
+    const p: Page = { ...cur, ...patch };
     p.preview = URL.createObjectURL(await render(p));
     setPages((x) => x.map((y, j) => (j === i ? p : y)));
   }
@@ -129,8 +131,8 @@ function ScanPage() {
             <div className="grid grid-cols-2 gap-4 text-sm">
               {(["Top", "Right", "Bottom", "Left"] as const).map((lbl, k) => (
                 <label key={lbl} className="space-y-2">
-                  <span className="text-xs text-muted-foreground">Crop {lbl.toLowerCase()} {e.crop[k]}%</span>
-                  <Slider min={0} max={40} step={1} value={[e.crop[k]]} onValueCommit={([v]) => { const c = [...e.crop] as Page["crop"]; c[k] = v; update(edit, { crop: c }); }} />
+                  <span className="text-xs text-muted-foreground">Crop {lbl.toLowerCase()} {e.crop[k] ?? 0}%</span>
+                  <Slider min={0} max={40} step={1} value={[e.crop[k] ?? 0]} onValueCommit={([v = 0]) => { const c = [...e.crop] as Page["crop"]; c[k] = v; update(edit, { crop: c }); }} />
                 </label>
               ))}
             </div>

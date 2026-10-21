@@ -100,7 +100,7 @@ export function draftFromRow(
   if (f.phone && !normalizePhone(f.phone, opts.country).valid) {
     const found = findPhones(f.phone, opts.country);
     if (found.length) {
-      f.phone = found[0];
+      f.phone = found[0] ?? null;
       if (found[1] && !f.secondary_phone) f.secondary_phone = found[1];
     }
   }

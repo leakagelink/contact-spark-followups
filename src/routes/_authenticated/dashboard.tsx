@@ -75,7 +75,7 @@ function Dashboard() {
         <div className="grid grid-cols-2 gap-2 sm:grid-cols-3 lg:grid-cols-5">
           {actions.map((a) => (
             <Button key={a.label} asChild variant={a.label === "Import File" ? "default" : "outline"} className="h-auto flex-col gap-2 py-4">
-              <Link to={a.to} search={"search" in a ? (a.search as never) : undefined}>
+              <Link to={a.to} {...("search" in a ? { search: a.search as never } : {})}>
                 <a.icon className="h-5 w-5" />
                 {a.label}
               </Link>
