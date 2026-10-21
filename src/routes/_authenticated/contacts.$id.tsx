@@ -195,8 +195,8 @@ function MergeDialog({ a, b, onClose }: { a: Contact; b: Contact; onClose: () =>
   async function run() {
     const patch: Record<string, string | null> = {};
     for (const f of fields) patch[f] = choice[f] === "a" ? a[f] : b[f];
-    if (!patch.secondary_phone && b.phone && b.phone !== patch.phone) patch.secondary_phone = b.phone;
-    if (!patch.secondary_email && b.email && b.email !== patch.email) patch.secondary_email = b.email;
+    if (!patch["secondary_phone"] && b.phone && b.phone !== patch["phone"]) patch["secondary_phone"] = b.phone;
+    if (!patch["secondary_email"] && b.email && b.email !== patch["email"]) patch["secondary_email"] = b.email;
     // Free B's unique phone/email before writing them onto A.
     await supabase.from("contact_activities").update({ contact_id: a.id }).eq("contact_id", b.id);
     await supabase.from("follow_up_tasks").update({ contact_id: a.id }).eq("contact_id", b.id);

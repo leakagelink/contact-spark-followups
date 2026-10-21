@@ -1,4 +1,4 @@
-export const APP_NAME = (import.meta.env.VITE_APP_NAME as string | undefined) || "ContactFlow AI";
+export const APP_NAME = (import.meta.env["VITE_APP_NAME"] as string | undefined) || "ContactFlow AI";
 
 export const CONTACT_FIELDS = [
   "full_name",

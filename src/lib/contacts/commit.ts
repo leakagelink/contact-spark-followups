@@ -66,7 +66,7 @@ export async function commitImport(
     const { data, error } = await supabase.from("contacts").insert(batch.map((b) => b.payload) as never).select("id");
     if (!error && data) {
       res.imported += data.length;
-      batch.forEach((b, j) => records.push({ import_job_id: jobId, extracted_data: b.row.draft.original, confidence: b.row.draft.confidence, validation_errors: b.row.issues, source_location: b.row.draft.sourceLocation, status: "imported", contact_id: data[j].id }));
+      batch.forEach((b, j) => records.push({ import_job_id: jobId, extracted_data: b.row.draft.original, confidence: b.row.draft.confidence, validation_errors: b.row.issues, source_location: b.row.draft.sourceLocation, status: "imported", contact_id: data[j]!.id }));
     } else {
       // Fall back to one-by-one so a single conflicting row doesn't fail the whole batch.
       for (const b of batch) {

@@ -20,6 +20,7 @@ export function SheetMapper({ files, onDone }: { files: SheetFile[]; onDone: (s:
         f.sheets.map((s, si) => {
           const k = `${fi}:${si}`;
           const st = sel[k];
+          if (!st) return null;
           return (
             <div key={k} className="rounded-xl border bg-card">
               <label className="flex items-center gap-3 border-b px-4 py-3">
@@ -74,8 +75,8 @@ export function SheetMapper({ files, onDone }: { files: SheetFile[]; onDone: (s:
             Object.entries(sel)
               .filter(([, v]) => v.on && v.mapping.some(Boolean))
               .map(([k, v]) => {
-                const [fi, si] = k.split(":").map(Number);
-                return { file: files[fi], sheetIdx: si, mapping: v.mapping };
+                const [fi = 0, si = 0] = k.split(":").map(Number);
+                return { file: files[fi]!, sheetIdx: si, mapping: v.mapping };
               }),
           )
         }

@@ -1,6 +1,6 @@
 import type { ReactNode } from "react";
 
-export function PageHeader({ title, description, actions }: { title: string; description?: string; actions?: ReactNode }) {
+export function PageHeader({ title, description, actions }: { title: string; description?: string | undefined; actions?: ReactNode }) {
   return (
     <div className="flex flex-col gap-3 border-b bg-card px-4 py-5 md:flex-row md:items-center md:justify-between md:px-8">
       <div>

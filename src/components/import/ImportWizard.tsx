@@ -94,8 +94,9 @@ export function ImportWizard({ input, onReset }: { input: { files?: File[]; text
     let n = 0;
     for (const s of sel) {
       const sheet = s.file.sheets[s.sheetIdx];
+      if (!sheet) continue;
       for (let i = 0; i < sheet.rows.length; i++) {
-        const d = draftFromRow(sheet.rows[i], s.mapping, { country, sourceFilename: s.file.name, sourceType: s.file.sourceType, location: `${sheet.name} · row ${i + 2}` });
+        const d = draftFromRow(sheet.rows[i] ?? [], s.mapping, { country, sourceFilename: s.file.name, sourceType: s.file.sourceType, location: `${sheet.name} · row ${i + 2}` });
         if (d) out.push(d);
         if (++n % 500 === 0) await yieldToUI();
       }
@@ -252,18 +253,18 @@ export function ImportWizard({ input, onReset }: { input: { files?: File[]; text
                   {(r.dups.length > 0 || r.batchDupOf) && (
                     <div className="ml-7 mt-2 flex flex-wrap items-center gap-2 rounded-lg bg-warning/10 p-2 text-xs">
                       <AlertTriangle className="h-4 w-4 text-warning-foreground" />
-                      {r.batchDupOf ? "Same phone/email appears earlier in this import." : `Matches an existing contact by ${r.dups[0].reason}${r.dups[0].strong ? "" : " (name only — may be a different person)"}.`}
+                      {r.batchDupOf ? "Same phone/email appears earlier in this import." : `Matches an existing contact by ${r.dups[0]!.reason}${r.dups[0]!.strong ? "" : " (name only — may be a different person)"}.`}
                       {r.dups[0] && (
-                        <Select value={actions[d.key] ?? (r.dups[0].strong ? "skip" : "create")} onValueChange={(v) => setActions((p) => ({ ...p, [d.key]: v as DupAction }))}>
+                        <Select value={actions[d.key] ?? (r.dups[0]!.strong ? "skip" : "create")} onValueChange={(v) => setActions((p) => ({ ...p, [d.key]: v as DupAction }))}>
                           <SelectTrigger className="h-8 w-48"><SelectValue /></SelectTrigger>
                           <SelectContent>
                             <SelectItem value="skip">Skip</SelectItem>
                             <SelectItem value="update">Update existing (fill empty fields)</SelectItem>
-                            {!r.dups[0].strong && <SelectItem value="create">Create as new contact</SelectItem>}
+                            {!r.dups[0]!.strong && <SelectItem value="create">Create as new contact</SelectItem>}
                           </SelectContent>
                         </Select>
                       )}
-                      {r.dups[0] && <Link to="/contacts/$id" params={{ id: r.dups[0].id }} target="_blank" className="underline">View existing</Link>}
+                      {r.dups[0] && <Link to="/contacts/$id" params={{ id: r.dups[0]!.id }} target="_blank" className="underline">View existing</Link>}
                     </div>
                   )}
                   {isOpen && (
