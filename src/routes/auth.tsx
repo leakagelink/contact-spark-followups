@@ -1,12 +1,10 @@
 import { createFileRoute, useNavigate } from "@tanstack/react-router";
 import { useEffect, useState } from "react";
 import { toast } from "sonner";
-import "@lovable.dev/cloud-auth-js/styles.css";
 import { Button } from "@/components/ui/button";
 import { Input } from "@/components/ui/input";
 import { Label } from "@/components/ui/label";
 import { supabase } from "@/integrations/supabase/client";
-import { lovable } from "@/integrations/lovable/index";
 import { APP_NAME } from "@/lib/contacts/types";
 
 export const Route = createFileRoute("/auth")({
@@ -61,10 +59,6 @@ function AuthPage() {
     }
   }
 
-  async function oauth(p: "google" | "lovable") {
-    const r = await lovable.auth.signInWithOAuth(p, { redirect_uri: window.location.origin + "/auth" });
-    if (r.error) toast.error(r.error.message ?? "Sign-in failed");
-  }
 
   async function forgot() {
     if (!email) return toast.error("Enter your email first");
@@ -84,16 +78,7 @@ function AuthPage() {
           </p>
         ) : (
           <>
-            <div className="mt-6 space-y-2">
-              <Button variant="outline" className="h-11 w-full" onClick={() => oauth("google")}>
-                Continue with Google
-              </Button>
-              <button type="button" className="lovable-auth-button w-full" onClick={() => oauth("lovable")}>
-                Continue with Lovable
-              </button>
-            </div>
-            <div className="my-5 text-center text-xs text-muted-foreground">or with email</div>
-            <form onSubmit={submit} className="space-y-3">
+            <form onSubmit={submit} className="mt-6 space-y-3">
               {mode === "signup" && (
                 <div>
                   <Label htmlFor="name">Name</Label>
