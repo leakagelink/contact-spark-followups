@@ -103,10 +103,8 @@ export function FollowUpPrompt() {
         <WhatsAppComposer
           contact={{ ...contact, whatsapp_phone: contact.whatsapp_phone ?? pending.phone }}
           open={compose}
-          onOpenChange={(o) => {
-            setCompose(o);
-            if (!o) finish("whatsapp_opened");
-          }}
+          onOpenChange={setCompose}
+          onDone={() => finish("whatsapp_opened")}
         />
       )}
     </>
