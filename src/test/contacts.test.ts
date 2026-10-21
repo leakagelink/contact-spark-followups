@@ -56,7 +56,7 @@ describe("duplicates", () => {
   });
   it("flags repeated numbers inside one import", () => {
     const d = draftsFromAI(
-      [{ full_name: "A", phone: "9876543210" }, { full_name: "B", phone: "+91 9876543210" }],
+      [{ full_name: "A", phone: "9876543210", confidence: 0.9 }, { full_name: "B", phone: "+91 9876543210", confidence: 0.9 }],
       { country: "IN", sourceFilename: null, sourceType: "text" },
     );
     expect(analyze(d, [], "IN").map((r) => r.status)).toEqual(["valid", "duplicate"]);
@@ -71,9 +71,9 @@ describe("AI post-processing", () => {
       sourceFilename: null,
       sourceType: "text",
     });
-    expect(d[0].fields.phone).toBe(null);
+    expect(d[0]!.fields.phone).toBe(null);
     // the real number is recovered as a separate partial contact
-    expect(d[1].fields.phone).toBe("+919876543210");
+    expect(d[1]!.fields.phone).toBe("+919876543210");
   });
 });
 

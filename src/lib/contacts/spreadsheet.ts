@@ -7,7 +7,7 @@ export type Sheet = { name: string; headers: string[]; rows: string[][] };
 export function readWorkbook(buf: ArrayBuffer): Sheet[] {
   const wb = XLSX.read(buf, { type: "array", raw: false, cellText: true, cellDates: false });
   return wb.SheetNames.map((name) => {
-    const aoa = XLSX.utils.sheet_to_json<string[]>(wb.Sheets[name], {
+    const aoa = XLSX.utils.sheet_to_json<string[]>(wb.Sheets[name]!, {
       header: 1,
       raw: false,
       defval: "",

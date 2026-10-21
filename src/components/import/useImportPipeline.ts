@@ -115,14 +115,15 @@ export function useImportPipeline(country: CountryCode) {
       const warnings: string[] = [];
       for (let i = 0; i < items.length; i++) {
         if (cancelled.current) break;
+        const item = items[i]!;
         set(i, { status: "processing" });
         await yieldToUI();
         try {
-          const r = await items[i].work();
+          const r = await item.work();
           if (r.drafts) drafts.push(...r.drafts);
           if (r.sheet) sheets.push(r.sheet);
-          if (r.warning) warnings.push(`${items[i].name}: ${r.warning}`);
-          set(i, { status: "done", found: r.drafts?.length ?? r.sheet?.sheets.reduce((a, s) => a + s.rows.length, 0) ?? 0, error: r.warning });
+          if (r.warning) warnings.push(`${item.name}: ${r.warning}`);
+          set(i, { status: "done", found: r.drafts?.length ?? r.sheet?.sheets.reduce((a, s) => a + s.rows.length, 0) ?? 0, ...(r.warning ? { error: r.warning } : {}) });
         } catch (e) {
           set(i, { status: "failed", error: (e as Error).message });
         }
