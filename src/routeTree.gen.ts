@@ -14,6 +14,11 @@ import { Route as AuthenticatedRouteRouteImport } from './routes/_authenticated/
 import { Route as AuthRouteImport } from './routes/auth'
 import { Route as ResetPasswordRouteImport } from './routes/reset-password'
 import { Route as AuthenticatedDashboardRouteImport } from './routes/_authenticated/dashboard'
+import { Route as AuthenticatedFollowUpsRouteImport } from './routes/_authenticated/follow-ups'
+import { Route as AuthenticatedHistoryRouteImport } from './routes/_authenticated/history'
+import { Route as AuthenticatedImportRouteImport } from './routes/_authenticated/import'
+import { Route as AuthenticatedScanRouteImport } from './routes/_authenticated/scan'
+import { Route as AuthenticatedSettingsRouteImport } from './routes/_authenticated/settings'
 import { Route as AuthenticatedContactsIndexRouteImport } from './routes/_authenticated/contacts.index'
 import { Route as AuthenticatedContactsIdRouteImport } from './routes/_authenticated/contacts.$id'
 import { Route as AuthenticatedContactsNewRouteImport } from './routes/_authenticated/contacts.new'
@@ -42,6 +47,31 @@ const AuthenticatedDashboardRoute = AuthenticatedDashboardRouteImport.update({
   path: '/dashboard',
   getParentRoute: () => AuthenticatedRouteRoute,
 } as any)
+const AuthenticatedFollowUpsRoute = AuthenticatedFollowUpsRouteImport.update({
+  id: '/follow-ups',
+  path: '/follow-ups',
+  getParentRoute: () => AuthenticatedRouteRoute,
+} as any)
+const AuthenticatedHistoryRoute = AuthenticatedHistoryRouteImport.update({
+  id: '/history',
+  path: '/history',
+  getParentRoute: () => AuthenticatedRouteRoute,
+} as any)
+const AuthenticatedImportRoute = AuthenticatedImportRouteImport.update({
+  id: '/import',
+  path: '/import',
+  getParentRoute: () => AuthenticatedRouteRoute,
+} as any)
+const AuthenticatedScanRoute = AuthenticatedScanRouteImport.update({
+  id: '/scan',
+  path: '/scan',
+  getParentRoute: () => AuthenticatedRouteRoute,
+} as any)
+const AuthenticatedSettingsRoute = AuthenticatedSettingsRouteImport.update({
+  id: '/settings',
+  path: '/settings',
+  getParentRoute: () => AuthenticatedRouteRoute,
+} as any)
 const AuthenticatedContactsIndexRoute =
   AuthenticatedContactsIndexRouteImport.update({
     id: '/contacts/',
@@ -65,6 +95,11 @@ export interface FileRoutesByFullPath {
   '/auth': typeof AuthRoute
   '/reset-password': typeof ResetPasswordRoute
   '/dashboard': typeof AuthenticatedDashboardRoute
+  '/follow-ups': typeof AuthenticatedFollowUpsRoute
+  '/history': typeof AuthenticatedHistoryRoute
+  '/import': typeof AuthenticatedImportRoute
+  '/scan': typeof AuthenticatedScanRoute
+  '/settings': typeof AuthenticatedSettingsRoute
   '/contacts/$id': typeof AuthenticatedContactsIdRoute
   '/contacts/new': typeof AuthenticatedContactsNewRoute
   '/contacts/': typeof AuthenticatedContactsIndexRoute
@@ -74,6 +109,11 @@ export interface FileRoutesByTo {
   '/auth': typeof AuthRoute
   '/reset-password': typeof ResetPasswordRoute
   '/dashboard': typeof AuthenticatedDashboardRoute
+  '/follow-ups': typeof AuthenticatedFollowUpsRoute
+  '/history': typeof AuthenticatedHistoryRoute
+  '/import': typeof AuthenticatedImportRoute
+  '/scan': typeof AuthenticatedScanRoute
+  '/settings': typeof AuthenticatedSettingsRoute
   '/contacts/$id': typeof AuthenticatedContactsIdRoute
   '/contacts/new': typeof AuthenticatedContactsNewRoute
   '/contacts': typeof AuthenticatedContactsIndexRoute
@@ -85,6 +125,11 @@ export interface FileRoutesById {
   '/auth': typeof AuthRoute
   '/reset-password': typeof ResetPasswordRoute
   '/_authenticated/dashboard': typeof AuthenticatedDashboardRoute
+  '/_authenticated/follow-ups': typeof AuthenticatedFollowUpsRoute
+  '/_authenticated/history': typeof AuthenticatedHistoryRoute
+  '/_authenticated/import': typeof AuthenticatedImportRoute
+  '/_authenticated/scan': typeof AuthenticatedScanRoute
+  '/_authenticated/settings': typeof AuthenticatedSettingsRoute
   '/_authenticated/contacts/$id': typeof AuthenticatedContactsIdRoute
   '/_authenticated/contacts/new': typeof AuthenticatedContactsNewRoute
   '/_authenticated/contacts/': typeof AuthenticatedContactsIndexRoute
@@ -96,6 +141,11 @@ export interface FileRouteTypes {
     | '/auth'
     | '/reset-password'
     | '/dashboard'
+    | '/follow-ups'
+    | '/history'
+    | '/import'
+    | '/scan'
+    | '/settings'
     | '/contacts/$id'
     | '/contacts/new'
     | '/contacts/'
@@ -105,6 +155,11 @@ export interface FileRouteTypes {
     | '/auth'
     | '/reset-password'
     | '/dashboard'
+    | '/follow-ups'
+    | '/history'
+    | '/import'
+    | '/scan'
+    | '/settings'
     | '/contacts/$id'
     | '/contacts/new'
     | '/contacts'
@@ -115,6 +170,11 @@ export interface FileRouteTypes {
     | '/auth'
     | '/reset-password'
     | '/_authenticated/dashboard'
+    | '/_authenticated/follow-ups'
+    | '/_authenticated/history'
+    | '/_authenticated/import'
+    | '/_authenticated/scan'
+    | '/_authenticated/settings'
     | '/_authenticated/contacts/$id'
     | '/_authenticated/contacts/new'
     | '/_authenticated/contacts/'
@@ -164,6 +224,41 @@ declare module '@tanstack/react-router' {
       preLoaderRoute: typeof AuthenticatedDashboardRouteImport
       parentRoute: typeof AuthenticatedRouteRoute
     }
+    '/_authenticated/follow-ups': {
+      id: '/_authenticated/follow-ups'
+      path: '/follow-ups'
+      fullPath: '/follow-ups'
+      preLoaderRoute: typeof AuthenticatedFollowUpsRouteImport
+      parentRoute: typeof AuthenticatedRouteRoute
+    }
+    '/_authenticated/history': {
+      id: '/_authenticated/history'
+      path: '/history'
+      fullPath: '/history'
+      preLoaderRoute: typeof AuthenticatedHistoryRouteImport
+      parentRoute: typeof AuthenticatedRouteRoute
+    }
+    '/_authenticated/import': {
+      id: '/_authenticated/import'
+      path: '/import'
+      fullPath: '/import'
+      preLoaderRoute: typeof AuthenticatedImportRouteImport
+      parentRoute: typeof AuthenticatedRouteRoute
+    }
+    '/_authenticated/scan': {
+      id: '/_authenticated/scan'
+      path: '/scan'
+      fullPath: '/scan'
+      preLoaderRoute: typeof AuthenticatedScanRouteImport
+      parentRoute: typeof AuthenticatedRouteRoute
+    }
+    '/_authenticated/settings': {
+      id: '/_authenticated/settings'
+      path: '/settings'
+      fullPath: '/settings'
+      preLoaderRoute: typeof AuthenticatedSettingsRouteImport
+      parentRoute: typeof AuthenticatedRouteRoute
+    }
     '/_authenticated/contacts/': {
       id: '/_authenticated/contacts/'
       path: '/contacts'
@@ -190,6 +285,11 @@ declare module '@tanstack/react-router' {
 
 interface AuthenticatedRouteRouteChildren {
   AuthenticatedDashboardRoute: typeof AuthenticatedDashboardRoute
+  AuthenticatedFollowUpsRoute: typeof AuthenticatedFollowUpsRoute
+  AuthenticatedHistoryRoute: typeof AuthenticatedHistoryRoute
+  AuthenticatedImportRoute: typeof AuthenticatedImportRoute
+  AuthenticatedScanRoute: typeof AuthenticatedScanRoute
+  AuthenticatedSettingsRoute: typeof AuthenticatedSettingsRoute
   AuthenticatedContactsIdRoute: typeof AuthenticatedContactsIdRoute
   AuthenticatedContactsNewRoute: typeof AuthenticatedContactsNewRoute
   AuthenticatedContactsIndexRoute: typeof AuthenticatedContactsIndexRoute
@@ -197,6 +297,11 @@ interface AuthenticatedRouteRouteChildren {
 
 const AuthenticatedRouteRouteChildren: AuthenticatedRouteRouteChildren = {
   AuthenticatedDashboardRoute: AuthenticatedDashboardRoute,
+  AuthenticatedFollowUpsRoute: AuthenticatedFollowUpsRoute,
+  AuthenticatedHistoryRoute: AuthenticatedHistoryRoute,
+  AuthenticatedImportRoute: AuthenticatedImportRoute,
+  AuthenticatedScanRoute: AuthenticatedScanRoute,
+  AuthenticatedSettingsRoute: AuthenticatedSettingsRoute,
   AuthenticatedContactsIdRoute: AuthenticatedContactsIdRoute,
   AuthenticatedContactsNewRoute: AuthenticatedContactsNewRoute,
   AuthenticatedContactsIndexRoute: AuthenticatedContactsIndexRoute,
